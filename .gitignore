@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.DS_Store
+.venv/
+venv/
+flows.csv
+flows.json
+run.json
+policy/
+hosts/
+*.etl
+*.pcap
+*.pcapng

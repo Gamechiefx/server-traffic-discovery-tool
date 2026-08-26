@@ -1,0 +1,43 @@
+{
+  "networks": [
+    {
+      "name": "net-ad",
+      "cidrs": ["10.70.1.0/24"],
+      "platform": "both",
+      "ftd_zone": "INSIDE"
+    },
+    {
+      "name": "net-app",
+      "cidrs": ["10.70.40.0/24"],
+      "platform": "nsx"
+    },
+    {
+      "name": "net-sql",
+      "cidrs": ["10.70.12.0/24"],
+      "platform": "nsx"
+    },
+    {
+      "name": "net-users",
+      "cidrs": ["10.80.0.0/16"],
+      "platform": "ftd",
+      "ftd_zone": "USERS"
+    },
+    {
+      "name": "net-backup",
+      "cidrs": ["10.70.90.0/24"],
+      "platform": "both",
+      "ftd_zone": "INSIDE"
+    }
+  ],
+  "services": [
+    {"name": "svc-ldap", "protocol": "tcp", "port": "389"},
+    {"name": "svc-ldaps", "protocol": "tcp", "port": "636"},
+    {"name": "svc-kerberos", "protocol": "tcp", "port": "88"},
+    {"name": "svc-dns", "protocol": "udp", "port": "53"},
+    {"name": "svc-smb", "protocol": "tcp", "port": "445"},
+    {"name": "svc-rdp", "protocol": "tcp", "port": "3389"},
+    {"name": "svc-ssh", "protocol": "tcp", "port": "22"},
+    {"name": "svc-mssql", "protocol": "tcp", "port": "1433"},
+    {"name": "svc-https", "protocol": "tcp", "port": "443"}
+  ]
+}

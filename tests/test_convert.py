@@ -6,11 +6,12 @@ from __future__ import annotations
 import sys
 import unittest
 from pathlib import Path
+from unittest import mock
 
 HERE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(HERE))
 
-from convert import convert_text, detect_format, split_endpoint  # noqa: E402
+from convert import convert_text, detect_format, ephemeral_floor, split_endpoint  # noqa: E402
 
 
 SS_SAMPLE = """
@@ -66,6 +67,12 @@ class SplitEndpointTests(unittest.TestCase):
     def test_ipv4_mapped_ipv6(self):
         self.assertEqual(split_endpoint("[::ffff:10.70.70.86]:22"), ("10.70.70.86", "22"))
 
+    def test_bare_wildcard_ipv6_listen(self):
+        self.assertEqual(split_endpoint(":::22"), ("::", "22"))
+
+    def test_ipv6_loopback_not_split(self):
+        self.assertEqual(split_endpoint("::1"), ("::1", "*"))
+
 
 class ConvertTests(unittest.TestCase):
     def _rows(self, text, **kwargs):
@@ -90,6 +97,21 @@ class ConvertTests(unittest.TestCase):
         rows = self._rows(text, host_ips={"10.70.12.20"})
         self.assertIn(("10.70.1.50", "10.70.12.20", "22", "tcp", "inbound"), rows)
 
+    def test_linux_ephemeral_range_outbound_not_flipped(self):
+        floor = ephemeral_floor()
+        text = f"tcp ESTAB 0 0 10.70.12.20:{floor + 1} 10.70.1.10:50000\n"
+        rows = self._rows(text, host_ips={"10.70.12.20"})
+        self.assertIn(("10.70.12.20", "10.70.1.10", "50000", "tcp", "outbound"), rows)
+
+    def test_ephemeral_floor_reads_proc_range(self):
+        with mock.patch("convert._ephemeral_floor", None), mock.patch(
+            "convert.Path"
+        ) as path_cls:
+            path_cls.return_value.read_text.return_value = "  32768   60999 \n"
+            self.assertEqual(ephemeral_floor(), 32768)
+        with mock.patch("convert._ephemeral_floor", None):
+            self.assertGreaterEqual(ephemeral_floor(), 1024)
+
     def test_ss_listen_and_directions(self):
         rows = self._rows(SS_SAMPLE, host_ips={"10.70.12.20"})
         self.assertIn(("*", "0.0.0.0", "22", "tcp", "listen"), rows)
@@ -112,6 +134,16 @@ class ConvertTests(unittest.TestCase):
         rows = self._rows(NETSTAT_SAMPLE)
         self.assertIn(("*", "0.0.0.0", "445", "tcp", "listen"), rows)
         self.assertIn(("10.70.8.12", "10.70.12.20", "445", "tcp", "inbound"), rows)
+
+    def test_netstat_tcp6_listen(self):
+        text = "tcp6       0      0 :::22                   :::*                    LISTEN      1234/sshd\n"
+        rows = self._rows(text)
+        self.assertIn(("*", "::", "22", "tcp", "listen"), rows)
+
+    def test_netstat_bsd_tcp4_dotted_endpoints(self):
+        text = "tcp4       0      0 10.0.0.5.22             10.0.0.9.51000          ESTABLISHED\n"
+        rows = self._rows(text, host_ips={"10.0.0.5"})
+        self.assertIn(("10.0.0.9", "10.0.0.5", "22", "tcp", "inbound"), rows)
 
     def test_tcpdump_uses_packet_dst_port(self):
         rows = self._rows(TCPDUMP_SAMPLE, host_ips={"10.70.12.20"})

@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import signal
 import socket
@@ -97,7 +98,10 @@ def load_run(out: Path) -> dict:
 
 def save_run(out: Path, data: dict) -> None:
     out.mkdir(parents=True, exist_ok=True)
-    (out / "run.json").write_text(json.dumps(data, indent=2) + "\n")
+    path = out / "run.json"
+    tmp = path.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(data, indent=2) + "\n")
+    os.replace(tmp, path)
 
 
 def resolve_deadline(out: Path, days: float, interval: int, force: bool = False) -> datetime:
@@ -105,6 +109,10 @@ def resolve_deadline(out: Path, days: float, interval: int, force: bool = False)
     if not force and existing.get("deadline"):
         deadline = parse_deadline(existing["deadline"])
         if deadline > datetime.now(timezone.utc):
+            if interval and existing.get("interval") != interval:
+                merged = dict(existing)
+                merged["interval"] = interval
+                save_run(out, merged)
             return deadline
     started = datetime.now(timezone.utc).replace(microsecond=0)
     deadline = started + timedelta(days=days)

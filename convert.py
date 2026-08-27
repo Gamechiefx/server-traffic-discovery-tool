@@ -12,6 +12,7 @@ import argparse
 import csv
 import io
 import json
+import os
 import re
 import sys
 from collections import defaultdict
@@ -39,6 +40,24 @@ CONNTRACK = re.compile(
 PROCESS_SS = re.compile(r'users:\(\("([^"]+)"')
 PROCESS_NETSTAT = re.compile(r"(\d+)/(\S+)")
 EPHEMERAL_MIN = 49152
+
+_ephemeral_floor: Optional[int] = None
+
+
+def ephemeral_floor() -> int:
+    """Lowest ephemeral client port. Linux publishes the real range in /proc;
+    49152 is the Windows/macOS default."""
+    global _ephemeral_floor
+    if _ephemeral_floor is None:
+        floor = 0
+        try:
+            fields = Path("/proc/sys/net/ipv4/ip_local_port_range").read_text().split()
+            if fields and fields[0].isdigit():
+                floor = int(fields[0])
+        except OSError:
+            pass
+        _ephemeral_floor = floor if floor > 1024 else EPHEMERAL_MIN
+    return _ephemeral_floor
 
 
 @dataclass
@@ -157,6 +176,12 @@ def split_endpoint(token: str) -> tuple[str, str]:
             ip, port = token.rsplit("]:", 1)
             return _clean_ip(ip), port
         last_colon = token.rfind(":")
+        if (
+            token[last_colon + 1 :].isdigit()
+            and last_colon >= 2
+            and set(token[:last_colon]) <= {":"}
+        ):
+            return "::", token[last_colon + 1 :]
         last_dot = token.rfind(".")
         if last_dot > last_colon and token[last_dot + 1 :].isdigit():
             return _clean_ip(token[:last_dot]), token[last_dot + 1 :]
@@ -235,8 +260,8 @@ def normalize_conn(
         not listening
         and local_port.isdigit()
         and remote_port.isdigit()
-        and int(local_port) < EPHEMERAL_MIN
-        and int(remote_port) >= EPHEMERAL_MIN
+        and int(local_port) < ephemeral_floor()
+        and int(remote_port) >= ephemeral_floor()
     ):
         listening = True
 
@@ -380,7 +405,7 @@ def parse_netstat(text: str) -> list[RawConn]:
         if len(parts) < 3:
             continue
         proto = parts[0]
-        if proto.upper() not in {"TCP", "UDP", "TCPv6", "UDPv6"}:
+        if not proto.lower().startswith(("tcp", "udp")):
             continue
         if parts[1].isdigit() and len(parts) >= 5:
             local, remote, state = parts[3], parts[4], parts[5] if len(parts) > 5 else ""
@@ -693,16 +718,20 @@ CSV_FIELDS = [
 
 def write_csv(store: Store, dest: Path) -> None:
     dest.parent.mkdir(parents=True, exist_ok=True)
-    with dest.open("w", newline="") as handle:
+    tmp = dest.with_name(dest.name + ".tmp")
+    with tmp.open("w", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=CSV_FIELDS)
         writer.writeheader()
         for flow in store.rows():
             writer.writerow(asdict(flow))
+    os.replace(tmp, dest)
 
 
 def write_json(store: Store, dest: Path) -> None:
     dest.parent.mkdir(parents=True, exist_ok=True)
-    dest.write_text(json.dumps([asdict(f) for f in store.rows()], indent=2) + "\n")
+    tmp = dest.with_name(dest.name + ".tmp")
+    tmp.write_text(json.dumps([asdict(f) for f in store.rows()], indent=2) + "\n")
+    os.replace(tmp, dest)
 
 
 def load_store(path: Path) -> Store:

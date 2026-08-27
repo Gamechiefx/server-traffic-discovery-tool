@@ -7,7 +7,7 @@
 #   .\bootstrap.ps1 -Action status|stop|uninstall
 #
 # After the window, on an analysis host with Python:
-#   .\bootstrap.ps1 -Action export -FlowsDir .\hosts -OutDir .\policy -Groups groups.json
+#   .\bootstrap.ps1 -Action export -FlowsDir .\hosts -OutExport .\policy -Groups groups.json
 
 [CmdletBinding()]
 param(
@@ -70,6 +70,13 @@ function Write-RunWindow {
             $parsed = [datetime]::Parse($existing.deadline, $null, [System.Globalization.DateTimeStyles]::AdjustToUniversal)
             if ($parsed -gt $now) {
                 Write-Host "keeping existing window until $($parsed.ToString('yyyy-MM-ddTHH:mm:ssZ'))"
+                if ($IntervalSeconds -and $existing.interval -ne $IntervalSeconds) {
+                    $existing.interval = $IntervalSeconds
+                    $tmp = "$runPath.tmp"
+                    ($existing | ConvertTo-Json) | Set-Content -Path $tmp -Encoding UTF8
+                    Move-Item -Force -Path $tmp -Destination $runPath
+                    Write-Host "refreshed interval to $IntervalSeconds"
+                }
                 return
             }
         } catch { }
@@ -82,7 +89,9 @@ function Write-RunWindow {
         interval = $IntervalSeconds
     }
     New-Item -ItemType Directory -Force -Path $OutDir | Out-Null
-    ($runObj | ConvertTo-Json) | Set-Content -Path $runPath -Encoding UTF8
+    $tmp = "$runPath.tmp"
+    ($runObj | ConvertTo-Json) | Set-Content -Path $tmp -Encoding UTF8
+    Move-Item -Force -Path $tmp -Destination $runPath
     Write-Host "run window until $($deadline.ToString('yyyy-MM-ddTHH:mm:ssZ'))"
 }
 
@@ -95,7 +104,9 @@ function Install-Collector {
     $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument $arg
     $trigger = New-ScheduledTaskTrigger -AtStartup
     $principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest
-    $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit ([TimeSpan]::Zero)
+    $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries `
+        -ExecutionTimeLimit ([TimeSpan]::Zero) -MultipleInstances IgnoreNew `
+        -RestartCount 3 -RestartInterval (New-TimeSpan -Minutes 5)
     Register-ScheduledTask -TaskName $TaskName -Action $action -Trigger $trigger -Principal $principal -Settings $settings -Force | Out-Null
     Start-ScheduledTask -TaskName $TaskName
     Write-Host "installed $TaskName"

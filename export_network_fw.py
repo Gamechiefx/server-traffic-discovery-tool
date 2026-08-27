@@ -71,6 +71,8 @@ class Candidate:
     first_seen: str = ""
     last_seen: str = ""
     processes: set = field(default_factory=set)
+    source_value: str = ""
+    dest_value: str = ""
 
 
 def load_groups(path: Optional[Path]) -> tuple[list[NetworkObj], dict[tuple[str, str], ServiceObj]]:
@@ -100,25 +102,25 @@ def _safe_name(prefix: str, value: str) -> str:
     return f"{prefix}-{cleaned}"[:64]
 
 
-def resolve_network(ip: str, networks: list[NetworkObj]) -> tuple[str, Optional[NetworkObj]]:
+def resolve_network(ip: str, networks: list[NetworkObj]) -> tuple[str, Optional[NetworkObj], str]:
     ip = _v4_mapped(ip)
     if ip in SKIP_SOURCES or ip in SKIP_DESTS:
-        return ip, None
+        return ip, None, ""
     for net in networks:
         if net.contains(ip):
-            return net.name, net
+            return net.name, net, ""
     try:
         addr = ipaddress.ip_address(ip)
     except ValueError:
-        return _safe_name("host", ip), None
+        return _safe_name("host", ip), None, ip
     if addr.is_loopback:
-        return _safe_name("host", ip), None
+        return _safe_name("host", ip), None, ip
     if addr.version == 4 and not addr.is_private:
-        return "net-internet", None
+        return "net-internet", None, "0.0.0.0/0"
     if addr.version == 4:
         slash24 = ipaddress.ip_network(f"{ip}/24", strict=False)
-        return _safe_name("net", str(slash24).replace("/", "-")), None
-    return _safe_name("host", ip), None
+        return _safe_name("net", str(slash24).replace("/", "-")), None, str(slash24)
+    return _safe_name("host", ip), None, ip
 
 
 def resolve_service(
@@ -177,8 +179,8 @@ def build_candidates(
         if port in {"", "*"}:
             continue
         count = int(row.get("count") or 1)
-        src_name, src_obj = resolve_network(source, networks)
-        dst_name, dst_obj = resolve_network(dest, networks)
+        src_name, src_obj, src_value = resolve_network(source, networks)
+        dst_name, dst_obj, dst_value = resolve_network(dest, networks)
         if src_name == dst_name:
             continue
         service = resolve_service(proto, port, services)
@@ -195,6 +197,8 @@ def build_candidates(
                 platform=platform,
                 src_zone=src_obj.ftd_zone if src_obj else "",
                 dst_zone=dst_obj.ftd_zone if dst_obj else "",
+                source_value=src_value,
+                dest_value=dst_value,
             )
             bucket[key] = item
         item.count += count
@@ -297,10 +301,15 @@ def write_objects(candidates: list[Candidate], groups_path: Optional[Path], dest
     dest.parent.mkdir(parents=True, exist_ok=True)
     nets = set()
     svcs = set()
+    values: dict[str, str] = {}
     for cand in candidates:
         nets.add(cand.source_object)
         nets.add(cand.dest_object)
         svcs.add((cand.service, cand.protocol, cand.port))
+        if cand.source_value:
+            values[cand.source_object] = cand.source_value
+        if cand.dest_value:
+            values[cand.dest_object] = cand.dest_value
     named = {}
     if groups_path:
         data = json.loads(groups_path.read_text())
@@ -312,7 +321,7 @@ def write_objects(candidates: list[Candidate], groups_path: Optional[Path], dest
             {
                 "type": "network",
                 "name": name,
-                "value": named.get(name, "REVIEW-unmapped-or-slash24"),
+                "value": named.get(name) or values.get(name) or "REVIEW-unmapped",
             }
         )
     for name, proto, port in sorted(svcs):

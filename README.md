@@ -106,6 +106,13 @@ Loopback (`127.0.0.1`, `::1`) is excluded unless explicitly enabled. Raw socket 
 
 The live collectors do not run `tcpdump`. `convert.py` can ingest existing `ss`, `netstat`, `tcpdump -nn`, Windows firewall log, `Get-NetTCPConnection` CSV, or `conntrack` text if those files are already produced by another approved process.
 
+Platform caveats:
+
+- **Windows UDP endpoints carry no state or remote address**, so every UDP endpoint is recorded as a `listen` row and outbound UDP flows (for example DNS) are not captured on Windows collectors. TCP direction on Windows is state-based and complete.
+- UDP listener rows require `ss` (Linux). The `netstat` fallback cannot distinguish UDP listeners from short-lived client sockets, so those rows are dropped.
+- Rows without a service port (for example ICMP from `conntrack` or `tcpdump`) stay in the host CSV for inventory but are excluded from candidate rules.
+- Direction from an established socket with no LISTEN row in the same snapshot uses the local ephemeral port range (`ip_local_port_range` on Linux, 49152 elsewhere) as the client-port floor.
+
 ---
 
 ## 5. Deployment
@@ -171,7 +178,7 @@ Remote layout:
 <dest>/<hostname>/daily/YYYYMMDD.csv # point-in-time copy for that UTC day
 ```
 
-Pre-stage the destination host key in `known_hosts` before first ship so operators are not relying on first-connect acceptance.
+Shipping uses `StrictHostKeyChecking=accept-new`: the first connection trusts whichever key the destination presents (TOFU). Pre-stage the destination host key in `known_hosts` before first ship so even that first copy is verified.
 
 ---
 
@@ -205,7 +212,7 @@ Copy `groups.example.json` to `groups.json` and replace the example CIDRs and se
 - `platform` — `nsx`, `ftd`, or `both`
 - `ftd_zone` — FTD zone when the pair is classified as FTD
 
-Unmapped private addresses are grouped as a `/24` and flagged for review. Public destinations collapse to `net-internet` and are classified as FTD.
+Unmapped private IPv4 addresses are grouped as a `/24`; `objects.csv` lists the derived CIDR as the object value (unmapped IPv6 hosts list their exact address). Public IPv4 destinations collapse to `net-internet` (`0.0.0.0/0`) and are classified as FTD.
 
 ### Export artifacts
 
@@ -225,7 +232,7 @@ Before any production import:
 1. Confirm every network object in `objects.csv` matches an approved CIDR.
 2. Reject or rewrite rules whose `count` is too low for the window, or whose process list is unexpected.
 3. Confirm FTD zone pairs and NSX group paths exist in the target managers.
-4. Treat `net-internet` and `REVIEW-unmapped-or-slash24` as incomplete until named.
+4. Treat `net-internet` and any object whose `objects.csv` value is `REVIEW-unmapped` as incomplete until named.
 5. Implement through the standard FMC / NSX change process. Do not apply these files blindly.
 
 ---

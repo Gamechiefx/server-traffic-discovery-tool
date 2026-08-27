@@ -87,9 +87,11 @@ function Merge-Flow {
 
 function Write-Store {
     New-Item -ItemType Directory -Force -Path $OutDir | Out-Null
+    $tmp = "$CsvPath.tmp"
     $script:Store.Values |
         Sort-Object { -[int]$_.count }, destination, port, source |
-        Export-Csv -Path $CsvPath -NoTypeInformation -Encoding UTF8
+        Export-Csv -Path $tmp -NoTypeInformation -Encoding UTF8
+    Move-Item -Force -Path $tmp -Destination $CsvPath
 }
 
 function Get-ProcessNameByPid([int]$ProcId) {
@@ -179,7 +181,8 @@ if (-not $deadline) {
         days     = $Days
         interval = $IntervalSeconds
     }
-    ($runObj | ConvertTo-Json) | Set-Content -Path $RunPath -Encoding UTF8
+    ($runObj | ConvertTo-Json) | Set-Content -Path "$RunPath.tmp" -Encoding UTF8
+    Move-Item -Force -Path "$RunPath.tmp" -Destination $RunPath
 }
 
 if ((Get-Date).ToUniversalTime() -ge $deadline) {

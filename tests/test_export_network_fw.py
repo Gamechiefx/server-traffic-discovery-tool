@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -16,6 +17,7 @@ from export_network_fw import (  # noqa: E402
     load_groups,
     write_ftd,
     write_nsx,
+    write_objects,
 )
 
 
@@ -114,17 +116,45 @@ class ExportTests(unittest.TestCase):
             },
         ]
         cands = build_candidates(rows, self.networks, self.services, min_count=3)
-        out = Path("/tmp/fw-export-test")
-        out.mkdir(exist_ok=True)
-        write_ftd(cands, out / "ftd.csv")
-        write_nsx(cands, out / "nsx.json")
-        ftd = (out / "ftd.csv").read_text()
-        self.assertIn("svc-ldap", ftd)
-        self.assertIn("net-users", ftd)
-        policy = json.loads((out / "nsx.json").read_text())
-        self.assertEqual(policy["resource_type"], "SecurityPolicy")
-        self.assertTrue(policy["rules"])
-        self.assertIn("svc-mssql", policy["rules"][0]["services"][0])
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp)
+            write_ftd(cands, out / "ftd.csv")
+            write_nsx(cands, out / "nsx.json")
+            ftd = (out / "ftd.csv").read_text()
+            self.assertIn("svc-ldap", ftd)
+            self.assertIn("net-users", ftd)
+            policy = json.loads((out / "nsx.json").read_text())
+            self.assertEqual(policy["resource_type"], "SecurityPolicy")
+            self.assertTrue(policy["rules"])
+            self.assertIn("svc-mssql", policy["rules"][0]["services"][0])
+
+    def test_objects_carry_values_for_unmapped_networks(self):
+        rows = [
+            {
+                "source": "10.30.30.111",
+                "destination": "10.70.70.86",
+                "port": "22",
+                "protocol": "tcp",
+                "direction": "outbound",
+                "count": "10",
+            },
+            {
+                "source": "2001:db8::10",
+                "destination": "10.70.40.9",
+                "port": "443",
+                "protocol": "tcp",
+                "direction": "outbound",
+                "count": "10",
+            },
+        ]
+        cands = build_candidates(rows, self.networks, self.services, min_count=3)
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp)
+            write_objects(cands, None, out / "objects.csv")
+            text = (out / "objects.csv").read_text()
+        self.assertIn("net-10.30.30.0-24,10.30.30.0/24", text)
+        self.assertIn("host-2001-db8-10,2001:db8::10", text)
+        self.assertNotIn("REVIEW-unmapped-or-slash24", text)
 
 
 if __name__ == "__main__":

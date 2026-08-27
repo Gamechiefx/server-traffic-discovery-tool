@@ -16,14 +16,14 @@ from collect import load_run, resolve_deadline  # noqa: E402
 
 
 class RunWindowTests(unittest.TestCase):
-    def test_creates_and_keeps_deadline(self):
+    def test_creates_deadline_keeps_window_refreshes_interval(self):
         with tempfile.TemporaryDirectory() as tmp:
             out = Path(tmp)
             first = resolve_deadline(out, days=14, interval=60, force=False)
             again = resolve_deadline(out, days=1, interval=30, force=False)
             self.assertEqual(first, again)
             run = load_run(out)
-            self.assertEqual(run["interval"], 60)
+            self.assertEqual(run["interval"], 30)
             self.assertGreater(first, datetime.now(timezone.utc) + timedelta(days=13))
 
     def test_force_replaces_deadline(self):

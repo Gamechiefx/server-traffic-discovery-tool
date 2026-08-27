@@ -10,7 +10,7 @@ param(
     [double]$Days = 14,
     [double]$Minutes = 0,
     [int]$IntervalSeconds = 5,
-    [string]$OutDir = "C:\ProgramData\LanIT\fw-baseline",
+    [string]$OutDir = "C:\ProgramData\fw-baseline",
     [switch]$IncludeLoopback,
     [switch]$ForceNewWindow
 )

@@ -3,8 +3,8 @@
 
 [CmdletBinding()]
 param(
-    [string]$OutDir = "C:\ProgramData\LanIT\fw-baseline",
-    [string]$Config = "C:\ProgramData\LanIT\fw-baseline\ship.env",
+    [string]$OutDir = "C:\ProgramData\fw-baseline",
+    [string]$Config = "C:\ProgramData\fw-baseline\ship.env",
     [ValidateSet("scp", "rclone")]
     [string]$Method = "",
     [string]$Dest = "",

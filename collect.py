@@ -134,7 +134,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--out",
         type=Path,
-        default=Path("/var/lib/lanit/fw-baseline"),
+        default=Path("/var/lib/fw-baseline"),
         help="Output directory",
     )
     parser.add_argument(

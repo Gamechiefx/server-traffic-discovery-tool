@@ -1,4 +1,4 @@
-# LanIT Firewall Baseline Toolkit
+# Server Traffic Discovery Tool
 
 This toolkit records **observed host network connections** over a defined window and produces **candidate firewall policy** for Cisco Secure Firewall (FTD) and VMware NSX Distributed Firewall. The intended use is a controlled, time-bounded baseline of production traffic so policy can be written from evidence instead of tribal knowledge or overly broad allow rules.
 
@@ -44,8 +44,8 @@ The output is a review package: network and service objects, FTD access-control 
 
 ### Privileges
 
-- **Linux install / uninstall / status:** root. The collector runs as a systemd service (`lanit-fw-baseline`).
-- **Windows install / uninstall / status:** elevated PowerShell. The collector runs as a scheduled task under `SYSTEM` (`LanIT-FwBaseline`).
+- **Linux install / uninstall / status:** root. The collector runs as a systemd service (`fw-baseline`).
+- **Windows install / uninstall / status:** elevated PowerShell. The collector runs as a scheduled task under `SYSTEM` (`FwBaseline`).
 - **Export:** any operator with read access to collected CSVs and Python 3. Does not require root.
 
 Collection needs enough privilege to read the socket table and, on Windows, process names. It does not install kernel modules, packet filters, or TAP/TUN devices.
@@ -58,8 +58,8 @@ Default storage:
 
 | Platform | Toolkit | Data | Ship config |
 |---|---|---|---|
-| Linux | `/opt/lanit/fw-baseline` | `/var/lib/lanit/fw-baseline` | `/etc/lanit/fw-baseline-ship.env` |
-| Windows | `C:\Program Files\LanIT\fw-baseline` | `C:\ProgramData\LanIT\fw-baseline` | `C:\ProgramData\LanIT\fw-baseline\ship.env` |
+| Linux | `/opt/fw-baseline` | `/var/lib/fw-baseline` | `/etc/fw-baseline-ship.env` |
+| Windows | `C:\Program Files\fw-baseline` | `C:\ProgramData\fw-baseline` | `C:\ProgramData\fw-baseline\ship.env` |
 
 Uninstall removes the service or scheduled task. **It keeps collected data** so a completed window is not lost. Delete those directories only after the review package is archived according to your retention policy.
 
@@ -133,7 +133,7 @@ The live collectors do not run `tcpdump`. `convert.py` can ingest existing `ss`,
 sudo ./bootstrap.sh
 sudo ./bootstrap.sh --days 14 --interval 5
 sudo ./bootstrap.sh --ship-dest fwship@central:/data/fw-baseline \
-  --ship-key /etc/lanit/fw-baseline_id_ed25519
+  --ship-key /etc/fw-baseline_id_ed25519
 ```
 
 Default interval is 5 seconds (minimum 5). Increase it if CPU or socket-table cost is a concern on a busy host.
@@ -151,7 +151,7 @@ Elevated PowerShell, from the toolkit directory:
 ```powershell
 .\bootstrap.ps1
 .\bootstrap.ps1 -Days 14 -IntervalSeconds 60
-.\bootstrap.ps1 -ShipDest "fwship@central:/data/fw-baseline" -ShipKey "C:\ProgramData\LanIT\fw-baseline_id_ed25519"
+.\bootstrap.ps1 -ShipDest "fwship@central:/data/fw-baseline" -ShipKey "C:\ProgramData\fw-baseline_id_ed25519"
 .\bootstrap.ps1 -Action status
 .\bootstrap.ps1 -Action stop
 .\bootstrap.ps1 -Action uninstall
@@ -214,7 +214,7 @@ Unmapped private addresses are grouped as a `/24` and flagged for review. Public
 | `fleet-flows.csv` | Merged unique flows across hosts |
 | `objects.csv` | Network and service objects referenced by candidates |
 | `ftd-candidate-rules.csv` | FTD access-control candidates (ALLOW, logging on) |
-| `nsx-candidate-policy.json` | NSX Security Policy JSON (`lanit-fw-baseline-candidates`) |
+| `nsx-candidate-policy.json` | NSX Security Policy JSON (`fw-baseline-candidates`) |
 
 Worked examples from a lab run are under `sample-output/`.
 

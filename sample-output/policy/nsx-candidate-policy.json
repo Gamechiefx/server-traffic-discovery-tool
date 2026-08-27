@@ -1,6 +1,6 @@
 {
   "resource_type": "SecurityPolicy",
-  "display_name": "lanit-fw-baseline-candidates",
+  "display_name": "fw-baseline-candidates",
   "category": "Application",
   "stateful": true,
   "rules": []

@@ -5,7 +5,7 @@
 # Deploy on a server:
 #   sudo ./bootstrap.sh
 #   sudo ./bootstrap.sh --days 14 --interval 5
-#   sudo ./bootstrap.sh --ship-dest fwship@central:/data/fw-baseline --ship-key /etc/lanit/fw-baseline_id_ed25519
+#   sudo ./bootstrap.sh --ship-dest fwship@central:/data/fw-baseline --ship-key /etc/fw-baseline_id_ed25519
 #
 # After the window, on an analysis host (or the central tree):
 #   ./bootstrap.sh export --flows-dir /data/fw-baseline --groups groups.json --out ./policy
@@ -17,11 +17,11 @@ ACTION="install"
 DAYS=14
 INTERVAL=5
 FORCE=0
-INSTALL_DIR="${FW_BASELINE_INSTALL_DIR:-/opt/lanit/fw-baseline}"
-DATA_DIR="${FW_BASELINE_DATA_DIR:-/var/lib/lanit/fw-baseline}"
-SERVICE_NAME="lanit-fw-baseline"
-SHIP_SERVICE_NAME="lanit-fw-baseline-ship"
-SHIP_ENV="/etc/lanit/fw-baseline-ship.env"
+INSTALL_DIR="${FW_BASELINE_INSTALL_DIR:-/opt/fw-baseline}"
+DATA_DIR="${FW_BASELINE_DATA_DIR:-/var/lib/fw-baseline}"
+SERVICE_NAME="fw-baseline"
+SHIP_SERVICE_NAME="fw-baseline-ship"
+SHIP_ENV="/etc/fw-baseline-ship.env"
 SHIP_METHOD="scp"
 SHIP_DEST=""
 SHIP_KEY=""
@@ -158,7 +158,7 @@ write_unit() {
   py="$(python_bin)"
   cat > "/etc/systemd/system/${SERVICE_NAME}.service" <<EOF
 [Unit]
-Description=LanIT firewall baseline collector
+Description=Firewall baseline collector
 After=network-online.target
 Wants=network-online.target
 
@@ -180,7 +180,7 @@ write_ship_env() {
   if [[ -z "$SHIP_DEST" ]]; then
     return 1
   fi
-  mkdir -p /etc/lanit
+  mkdir -p "$(dirname "$SHIP_ENV")"
   cat > "$SHIP_ENV" <<EOF
 SHIP_METHOD=${SHIP_METHOD}
 SHIP_DEST=${SHIP_DEST}
@@ -195,7 +195,7 @@ write_ship_units() {
   py="$(python_bin)"
   cat > "/etc/systemd/system/${SHIP_SERVICE_NAME}.service" <<EOF
 [Unit]
-Description=LanIT firewall baseline daily ship
+Description=Firewall baseline daily ship
 After=network-online.target
 Wants=network-online.target
 

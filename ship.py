@@ -142,7 +142,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--data-dir",
         type=Path,
-        default=Path("/var/lib/lanit/fw-baseline"),
+        default=Path("/var/lib/fw-baseline"),
     )
     parser.add_argument("--config", type=Path, default=None)
     parser.add_argument("--method", choices=["scp", "rsync", "rclone"], default=None)

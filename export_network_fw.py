@@ -285,7 +285,7 @@ def write_nsx(candidates: list[Candidate], dest: Path) -> None:
         )
     policy = {
         "resource_type": "SecurityPolicy",
-        "display_name": "lanit-fw-baseline-candidates",
+        "display_name": "fw-baseline-candidates",
         "category": "Application",
         "stateful": True,
         "rules": rules,

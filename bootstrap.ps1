@@ -16,8 +16,8 @@ param(
     [double]$Days = 14,
     [int]$IntervalSeconds = 5,
     [switch]$Force,
-    [string]$InstallDir = "C:\Program Files\LanIT\fw-baseline",
-    [string]$OutDir = "C:\ProgramData\LanIT\fw-baseline",
+    [string]$InstallDir = "C:\Program Files\fw-baseline",
+    [string]$OutDir = "C:\ProgramData\fw-baseline",
     [string]$FlowsDir = "",
     [string]$Groups = "",
     [string]$OutExport = "",
@@ -32,8 +32,8 @@ param(
 
 $ErrorActionPreference = "Stop"
 $Here = Split-Path -Parent $MyInvocation.MyCommand.Path
-$TaskName = "LanIT-FwBaseline"
-$ShipTaskName = "LanIT-FwBaseline-Ship"
+$TaskName = "FwBaseline"
+$ShipTaskName = "FwBaseline-Ship"
 $ShipEnv = Join-Path $OutDir "ship.env"
 
 function Test-Admin {

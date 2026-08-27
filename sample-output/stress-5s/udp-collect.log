@@ -1,0 +1,36 @@
+collecting on LNS-AGENTTST-LXC-001 until 2026-08-26T22:55:57Z, every 5s
+host IPs: 10.100.0.2, 10.70.70.86, 172.20.0.1, 172.20.0.255, 2607:fb91:5102:e963:be24:11ff:fe18:1e10, fdeb:d4f9:4823:0:be24:11ff:fe18:1e10, fe80::4043:aaff:fe11:28fd, fe80::8c7e:2eff:feda:5389, fe80::be24:11ff:fe18:1e10
+output: /home/ai-ops/fw-udp-data/flows.csv
+22:48:45Z snapshots=1 unique=18 new=18
+22:48:50Z snapshots=2 unique=19 new=1
+22:48:55Z snapshots=3 unique=20 new=1
+22:49:00Z snapshots=4 unique=20 new=0
+22:49:05Z snapshots=5 unique=21 new=1
+22:49:10Z snapshots=6 unique=22 new=1
+22:49:15Z snapshots=7 unique=22 new=0
+22:49:20Z snapshots=8 unique=22 new=0
+22:49:25Z snapshots=9 unique=22 new=0
+22:49:30Z snapshots=10 unique=22 new=0
+22:49:35Z snapshots=11 unique=22 new=0
+22:49:40Z snapshots=12 unique=22 new=0
+22:49:45Z snapshots=13 unique=22 new=0
+22:49:50Z snapshots=14 unique=22 new=0
+22:49:55Z snapshots=15 unique=22 new=0
+22:50:00Z snapshots=16 unique=22 new=0
+22:50:05Z snapshots=17 unique=22 new=0
+22:50:10Z snapshots=18 unique=22 new=0
+22:50:15Z snapshots=19 unique=22 new=0
+22:50:20Z snapshots=20 unique=22 new=0
+22:50:25Z snapshots=21 unique=22 new=0
+22:50:30Z snapshots=22 unique=22 new=0
+22:50:35Z snapshots=23 unique=22 new=0
+22:50:40Z snapshots=24 unique=22 new=0
+22:50:45Z snapshots=25 unique=22 new=0
+22:50:50Z snapshots=26 unique=22 new=0
+22:50:55Z snapshots=27 unique=22 new=0
+22:51:00Z snapshots=28 unique=22 new=0
+22:51:05Z snapshots=29 unique=22 new=0
+22:51:10Z snapshots=30 unique=22 new=0
+22:51:15Z snapshots=31 unique=22 new=0
+22:51:20Z snapshots=32 unique=22 new=0
+stopped. 22 unique source/destination/port rows in /home/ai-ops/fw-udp-data/flows.csv

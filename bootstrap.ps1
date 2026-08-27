@@ -11,22 +11,30 @@
 
 [CmdletBinding()]
 param(
-    [ValidateSet("install", "status", "stop", "uninstall", "export")]
+    [ValidateSet("install", "status", "stop", "uninstall", "export", "ship")]
     [string]$Action = "install",
     [double]$Days = 14,
-    [int]$IntervalSeconds = 60,
+    [int]$IntervalSeconds = 5,
     [switch]$Force,
     [string]$InstallDir = "C:\Program Files\LanIT\fw-baseline",
     [string]$OutDir = "C:\ProgramData\LanIT\fw-baseline",
     [string]$FlowsDir = "",
     [string]$Groups = "",
     [string]$OutExport = "",
-    [int]$MinCount = 3
+    [int]$MinCount = 3,
+    [ValidateSet("", "scp", "rclone")]
+    [string]$ShipMethod = "",
+    [string]$ShipDest = "",
+    [string]$ShipKey = "",
+    [string]$ShipPort = "22",
+    [switch]$ShipNow
 )
 
 $ErrorActionPreference = "Stop"
 $Here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $TaskName = "LanIT-FwBaseline"
+$ShipTaskName = "LanIT-FwBaseline-Ship"
+$ShipEnv = Join-Path $OutDir "ship.env"
 
 function Test-Admin {
     $ident = [Security.Principal.WindowsIdentity]::GetCurrent()
@@ -42,7 +50,9 @@ function Copy-Toolkit {
         "bootstrap.ps1",
         "convert.py",
         "export_network_fw.py",
-        "groups.example.json"
+        "groups.example.json",
+        "ship.ps1",
+        "ship.example.env"
     )) {
         $src = Join-Path $Here $name
         if (Test-Path $src) {
@@ -90,7 +100,34 @@ function Install-Collector {
     Start-ScheduledTask -TaskName $TaskName
     Write-Host "installed $TaskName"
     Write-Host "data: $(Join-Path $OutDir 'flows.csv')"
+    if ($ShipDest) { Install-Ship }
     Get-ScheduledTask -TaskName $TaskName | Get-ScheduledTaskInfo | Format-List
+}
+
+function Write-ShipEnv {
+    if (-not $ShipDest) { return $false }
+    $method = if ($ShipMethod) { $ShipMethod } else { "scp" }
+    @"
+SHIP_METHOD=$method
+SHIP_DEST=$ShipDest
+SHIP_SSH_KEY=$ShipKey
+SHIP_SSH_PORT=$ShipPort
+"@ | Set-Content -Path $ShipEnv -Encoding ASCII
+    Write-Host "wrote $ShipEnv"
+    return $true
+}
+
+function Install-Ship {
+    if (-not (Write-ShipEnv)) { return }
+    $shipper = Join-Path $InstallDir "ship.ps1"
+    $arg = "-NoProfile -ExecutionPolicy Bypass -File `"$shipper`" -OutDir `"$OutDir`" -Config `"$ShipEnv`""
+    $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument $arg
+    $trigger = New-ScheduledTaskTrigger -Daily -At 00:15
+    $principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -LogonType ServiceAccount -RunLevel Highest
+    $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -StartWhenAvailable
+    Register-ScheduledTask -TaskName $ShipTaskName -Action $action -Trigger $trigger -Principal $principal -Settings $settings -Force | Out-Null
+    Write-Host "daily ship: $ShipDest at 00:15"
+    if ($ShipNow) { Start-ScheduledTask -TaskName $ShipTaskName }
 }
 
 function Show-Status {
@@ -106,6 +143,11 @@ function Show-Status {
     if (Test-Path $csv) {
         Write-Host "flows: $csv ($((Get-Content $csv).Count) lines)"
     }
+    if (Test-Path $ShipEnv) {
+        Write-Host "ship.env:"
+        Get-Content $ShipEnv | Where-Object { $_ -match "^(SHIP_METHOD|SHIP_DEST)=" }
+        Get-ScheduledTask -TaskName $ShipTaskName -ErrorAction SilentlyContinue | Format-List
+    }
 }
 
 function Stop-Collector {
@@ -120,7 +162,17 @@ function Stop-Collector {
 function Uninstall-Collector {
     Stop-Collector
     Unregister-ScheduledTask -TaskName $TaskName -Confirm:$false -ErrorAction SilentlyContinue
+    Unregister-ScheduledTask -TaskName $ShipTaskName -Confirm:$false -ErrorAction SilentlyContinue
     Write-Host "removed $TaskName (data kept in $OutDir)"
+}
+
+function Invoke-Ship {
+    if (-not (Test-Admin)) { throw "Run elevated: .\bootstrap.ps1 -Action ship" }
+    if ($ShipDest) { Write-ShipEnv | Out-Null }
+    if (-not (Test-Path $ShipEnv)) { throw "no ship dest. pass -ShipDest or install with -ShipDest" }
+    $shipper = Join-Path $InstallDir "ship.ps1"
+    if (-not (Test-Path $shipper)) { $shipper = Join-Path $Here "ship.ps1" }
+    & $shipper -OutDir $OutDir -Config $ShipEnv
 }
 
 function Export-Candidates {
@@ -150,4 +202,5 @@ switch ($Action) {
     "stop" { Stop-Collector }
     "uninstall" { Uninstall-Collector }
     "export" { Export-Candidates }
+    "ship" { Invoke-Ship }
 }

@@ -1,0 +1,2 @@
+name,action,source_zone,dest_zone,source_network,dest_network,service,protocol,port,logging,count,comment
+allow-0001-svc-ssh,ALLOW,,,net-10.30.30.0-24,net-10.70.70.0-24,svc-ssh,tcp,22,True,7,hosts=LNS-AGENTTST-LXC-001; proc=sshd-session

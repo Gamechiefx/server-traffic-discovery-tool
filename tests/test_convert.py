@@ -63,6 +63,9 @@ class SplitEndpointTests(unittest.TestCase):
     def test_star(self):
         self.assertEqual(split_endpoint("*"), ("*", "*"))
 
+    def test_ipv4_mapped_ipv6(self):
+        self.assertEqual(split_endpoint("[::ffff:10.70.70.86]:22"), ("10.70.70.86", "22"))
+
 
 class ConvertTests(unittest.TestCase):
     def _rows(self, text, **kwargs):
@@ -71,6 +74,16 @@ class ConvertTests(unittest.TestCase):
 
     def test_detect_ss(self):
         self.assertEqual(detect_format(SS_SAMPLE), "ss")
+
+    def test_udp_unconn_listen_and_connected_outbound(self):
+        text = (
+            "udp UNCONN 0 0 0.0.0.0:53 0.0.0.0:*\n"
+            "udp ESTAB 0 0 10.70.70.86:51000 10.70.70.77:123\n"
+            "udp UNCONN 0 0 10.70.70.86:51001 10.70.70.77:123\n"
+        )
+        rows = self._rows(text, host_ips={"10.70.70.86"})
+        self.assertIn(("*", "0.0.0.0", "53", "udp", "listen"), rows)
+        self.assertIn(("10.70.70.86", "10.70.70.77", "123", "udp", "outbound"), rows)
 
     def test_estab_only_uses_ephemeral_heuristic(self):
         text = "tcp ESTAB 0 0 10.70.12.20:22 10.70.1.50:51234\n"
@@ -122,6 +135,14 @@ class ConvertTests(unittest.TestCase):
         self.assertEqual(detect_format(CONNTRACK_SAMPLE), "conntrack")
         rows = self._rows(CONNTRACK_SAMPLE, host_ips={"10.70.12.20"})
         self.assertIn(("10.70.12.20", "10.70.1.10", "389", "tcp", "outbound"), rows)
+
+    def test_flows_csv_strips_ipv4_mapped(self):
+        text = (
+            "source,destination,port,protocol,direction,count\n"
+            "::ffff:10.30.30.111,::ffff:10.70.70.86,22,tcp,inbound,3\n"
+        )
+        rows = self._rows(text, fmt="flows")
+        self.assertIn(("10.30.30.111", "10.70.70.86", "22", "tcp", "inbound"), rows)
 
     def test_flows_merge(self):
         first = convert_text(SS_SAMPLE, host_ips={"10.70.12.20"})

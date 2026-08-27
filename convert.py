@@ -126,6 +126,9 @@ def _clean_ip(value: str) -> str:
         value = value.split("%", 1)[0]
     if "%" in value:
         value = value.split("%", 1)[0]
+    lowered = value.lower()
+    if lowered.startswith("::ffff:") and lowered.count(".") == 3:
+        return value.rsplit(":", 1)[-1]
     return value
 
 
@@ -220,7 +223,8 @@ def normalize_conn(
         return None
 
     state = (conn.state or "").upper()
-    listening = state in {"LISTEN", "LISTENING", "UNCONN"} or (
+    unconn_listen = state == "UNCONN" and remote_ip in {"", "*", "0.0.0.0", "::"}
+    listening = state in {"LISTEN", "LISTENING"} or unconn_listen or (
         listeners is not None and (local_ip, local_port) in listeners
     ) or (
         listeners is not None and ("*", local_port) in listeners
@@ -236,7 +240,7 @@ def normalize_conn(
     ):
         listening = True
 
-    if state in {"LISTEN", "LISTENING"}:
+    if state in {"LISTEN", "LISTENING"} or unconn_listen:
         if local_port in {"", "*"}:
             return None
         return Flow(
@@ -531,8 +535,8 @@ def parse_flows_csv(text: str) -> list[Flow]:
             continue
         flows.append(
             Flow(
-                source=row["source"].strip(),
-                destination=row["destination"].strip(),
+                source=_clean_ip(row["source"].strip()),
+                destination=_clean_ip(row["destination"].strip()),
                 port=row["port"].strip(),
                 protocol=(row.get("protocol") or "tcp").strip().lower(),
                 source_port=(row.get("source_port") or "").strip(),
@@ -588,7 +592,11 @@ def collect_listeners(conns: Iterable[RawConn]) -> set[tuple[str, str]]:
     found: set[tuple[str, str]] = set()
     for conn in conns:
         state = (conn.state or "").upper()
-        if state in {"LISTEN", "LISTENING"} and conn.local_port not in {"", "*"}:
+        remote = (conn.remote_ip or "").strip()
+        unconn_listen = state == "UNCONN" and remote in {"", "*", "0.0.0.0", "::"}
+        if (
+            state in {"LISTEN", "LISTENING"} or unconn_listen
+        ) and conn.local_port not in {"", "*"}:
             found.add((conn.local_ip or "*", conn.local_port))
             found.add(("*", conn.local_port))
     return found

@@ -8,7 +8,8 @@
 [CmdletBinding()]
 param(
     [double]$Days = 14,
-    [int]$IntervalSeconds = 60,
+    [double]$Minutes = 0,
+    [int]$IntervalSeconds = 5,
     [string]$OutDir = "C:\ProgramData\LanIT\fw-baseline",
     [switch]$IncludeLoopback,
     [switch]$ForceNewWindow
@@ -146,6 +147,7 @@ function Invoke-Snapshot {
     }
 }
 
+if ($Minutes -gt 0) { $Days = $Minutes / 1440.0 }
 if ($Days -le 0) { throw "-Days must be > 0" }
 if ($IntervalSeconds -lt 5) { throw "-IntervalSeconds must be >= 5" }
 

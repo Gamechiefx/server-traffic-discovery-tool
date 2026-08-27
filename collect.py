@@ -128,8 +128,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--interval",
         type=int,
-        default=60,
-        help="Seconds between snapshots (default 60)",
+        default=5,
+        help="Seconds between snapshots (default 5)",
     )
     parser.add_argument(
         "--out",

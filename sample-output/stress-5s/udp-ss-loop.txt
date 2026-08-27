@@ -1,0 +1,413 @@
+===== 2026-08-26T22:48:45Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:48:50Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:48:55Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:49:00Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:Port Process                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*     users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*     users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*     users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*     users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*     users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*     users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*     users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*     users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                          
+ESTAB  960    0        10.70.70.86:53677  10.70.70.77:19424 users:(("python3",pid=1945943,fd=3)) 
+UNCONN 0      0               [::]:51821         [::]:*                                          
+===== 2026-08-26T22:49:05Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:Port Process                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*     users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*     users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*     users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*     users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*     users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*     users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*     users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*     users:(("python3",pid=1945896,fd=10))
+ESTAB  960    0        10.70.70.86:49010  10.70.70.77:19425 users:(("python3",pid=1945943,fd=3)) 
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                          
+UNCONN 0      0               [::]:51821         [::]:*                                          
+===== 2026-08-26T22:49:10Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:Port Process                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*     users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*     users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*     users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*     users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*     users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*     users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*     users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*     users:(("python3",pid=1945896,fd=10))
+ESTAB  960    0        10.70.70.86:41444  10.70.70.77:19426 users:(("python3",pid=1945943,fd=3)) 
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                          
+UNCONN 0      0               [::]:51821         [::]:*                                          
+===== 2026-08-26T22:49:15Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:Port Process                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*     users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*     users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*     users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*     users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*     users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*     users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*     users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*     users:(("python3",pid=1945896,fd=10))
+ESTAB  960    0        10.70.70.86:41444  10.70.70.77:19426 users:(("python3",pid=1945943,fd=3)) 
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                          
+UNCONN 0      0               [::]:51821         [::]:*                                          
+===== 2026-08-26T22:49:20Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:Port Process                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*     users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*     users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*     users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*     users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*     users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*     users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*     users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*     users:(("python3",pid=1945896,fd=10))
+ESTAB  960    0        10.70.70.86:41444  10.70.70.77:19426 users:(("python3",pid=1945943,fd=3)) 
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                          
+UNCONN 0      0               [::]:51821         [::]:*                                          
+===== 2026-08-26T22:49:25Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:49:30Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:49:35Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:49:40Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:49:45Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:49:50Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:49:55Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:50:00Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:50:05Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:50:10Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:50:15Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:50:20Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:50:25Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:50:30Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:50:35Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:50:40Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:50:45Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:50:50Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:50:55Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:51:00Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:51:05Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:51:10Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:51:15Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:51:20Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:51:26Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         
+===== 2026-08-26T22:51:31Z =====
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                               
+UNCONN 0      0            0.0.0.0:19421      0.0.0.0:*    users:(("python3",pid=1945896,fd=3)) 
+UNCONN 0      0            0.0.0.0:19422      0.0.0.0:*    users:(("python3",pid=1945896,fd=4)) 
+UNCONN 0      0            0.0.0.0:19423      0.0.0.0:*    users:(("python3",pid=1945896,fd=5)) 
+UNCONN 0      0            0.0.0.0:19424      0.0.0.0:*    users:(("python3",pid=1945896,fd=6)) 
+UNCONN 0      0            0.0.0.0:19425      0.0.0.0:*    users:(("python3",pid=1945896,fd=7)) 
+UNCONN 0      0            0.0.0.0:19426      0.0.0.0:*    users:(("python3",pid=1945896,fd=8)) 
+UNCONN 0      0            0.0.0.0:19427      0.0.0.0:*    users:(("python3",pid=1945896,fd=9)) 
+UNCONN 0      0            0.0.0.0:19428      0.0.0.0:*    users:(("python3",pid=1945896,fd=10))
+UNCONN 0      0            0.0.0.0:51821      0.0.0.0:*                                         
+UNCONN 0      0               [::]:51821         [::]:*                                         

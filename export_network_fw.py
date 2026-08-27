@@ -35,10 +35,18 @@ class NetworkObj:
 
     def contains(self, ip: str) -> bool:
         try:
-            addr = ipaddress.ip_address(ip)
+            addr = ipaddress.ip_address(_v4_mapped(ip))
         except ValueError:
             return False
         return any(addr in net for net in self.cidrs)
+
+
+def _v4_mapped(ip: str) -> str:
+    value = (ip or "").strip()
+    lowered = value.lower()
+    if lowered.startswith("::ffff:") and lowered.count(".") == 3:
+        return value.rsplit(":", 1)[-1]
+    return value
 
 
 @dataclass
@@ -93,6 +101,7 @@ def _safe_name(prefix: str, value: str) -> str:
 
 
 def resolve_network(ip: str, networks: list[NetworkObj]) -> tuple[str, Optional[NetworkObj]]:
+    ip = _v4_mapped(ip)
     if ip in SKIP_SOURCES or ip in SKIP_DESTS:
         return ip, None
     for net in networks:

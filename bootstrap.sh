@@ -4,21 +4,30 @@
 #
 # Deploy on a server:
 #   sudo ./bootstrap.sh
-#   sudo ./bootstrap.sh --days 14 --interval 60
+#   sudo ./bootstrap.sh --days 14 --interval 5
+#   sudo ./bootstrap.sh --ship-dest fwship@central:/data/fw-baseline --ship-key /etc/lanit/fw-baseline_id_ed25519
 #
-# After the window, on an analysis host:
-#   ./bootstrap.sh export --flows-dir ./hosts --groups groups.json --out ./policy
+# After the window, on an analysis host (or the central tree):
+#   ./bootstrap.sh export --flows-dir /data/fw-baseline --groups groups.json --out ./policy
 #
 set -euo pipefail
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
 ACTION="install"
 DAYS=14
-INTERVAL=60
+INTERVAL=5
 FORCE=0
 INSTALL_DIR="${FW_BASELINE_INSTALL_DIR:-/opt/lanit/fw-baseline}"
 DATA_DIR="${FW_BASELINE_DATA_DIR:-/var/lib/lanit/fw-baseline}"
 SERVICE_NAME="lanit-fw-baseline"
+SHIP_SERVICE_NAME="lanit-fw-baseline-ship"
+SHIP_ENV="/etc/lanit/fw-baseline-ship.env"
+SHIP_METHOD="scp"
+SHIP_DEST=""
+SHIP_KEY=""
+SHIP_PORT="22"
+SHIP_HOUR="0"
+SHIP_NOW=0
 FLOWS_DIR=""
 GROUPS=""
 EXPORT_OUT=""
@@ -28,7 +37,8 @@ usage() {
   cat <<'EOF'
 Usage:
   sudo ./bootstrap.sh [--days N] [--interval SEC] [--force]
-  sudo ./bootstrap.sh status|stop|uninstall
+  sudo ./bootstrap.sh --ship-dest user@host:/path [--ship-method scp|rsync|rclone] [--ship-key FILE]
+  sudo ./bootstrap.sh status|stop|uninstall|ship
   ./bootstrap.sh export --flows-dir DIR --out DIR [--groups groups.json]
 
 Default action installs the toolkit and starts a multi-day collector.
@@ -37,7 +47,7 @@ EOF
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    install|status|stop|uninstall|export)
+    install|status|stop|uninstall|export|ship)
       ACTION="$1"
       shift
       ;;
@@ -77,6 +87,30 @@ while [[ $# -gt 0 ]]; do
       MIN_COUNT="$2"
       shift 2
       ;;
+    --ship-method)
+      SHIP_METHOD="$2"
+      shift 2
+      ;;
+    --ship-dest)
+      SHIP_DEST="$2"
+      shift 2
+      ;;
+    --ship-key)
+      SHIP_KEY="$2"
+      shift 2
+      ;;
+    --ship-port)
+      SHIP_PORT="$2"
+      shift 2
+      ;;
+    --ship-hour)
+      SHIP_HOUR="$2"
+      shift 2
+      ;;
+    --ship-now)
+      SHIP_NOW=1
+      shift
+      ;;
     -h|--help)
       usage
       exit 0
@@ -108,12 +142,15 @@ python_bin() {
 copy_toolkit() {
   mkdir -p "$INSTALL_DIR" "$DATA_DIR"
   local f
-  for f in convert.py collect.py export_network_fw.py groups.example.json bootstrap.sh; do
+  for f in convert.py collect.py export_network_fw.py groups.example.json bootstrap.sh ship.py ship.example.env; do
     if [[ -f "$HERE/$f" ]]; then
       cp -f "$HERE/$f" "$INSTALL_DIR/$f"
     fi
   done
   chmod 755 "$INSTALL_DIR/collect.py" "$INSTALL_DIR/convert.py" "$INSTALL_DIR/export_network_fw.py" "$INSTALL_DIR/bootstrap.sh"
+  if [[ -f "$INSTALL_DIR/ship.py" ]]; then
+    chmod 755 "$INSTALL_DIR/ship.py"
+  fi
 }
 
 write_unit() {
@@ -137,6 +174,50 @@ WantedBy=multi-user.target
 EOF
   systemctl daemon-reload
   systemctl enable "$SERVICE_NAME"
+}
+
+write_ship_env() {
+  if [[ -z "$SHIP_DEST" ]]; then
+    return 1
+  fi
+  mkdir -p /etc/lanit
+  cat > "$SHIP_ENV" <<EOF
+SHIP_METHOD=${SHIP_METHOD}
+SHIP_DEST=${SHIP_DEST}
+SHIP_SSH_KEY=${SHIP_KEY}
+SHIP_SSH_PORT=${SHIP_PORT}
+EOF
+  chmod 600 "$SHIP_ENV"
+}
+
+write_ship_units() {
+  local py
+  py="$(python_bin)"
+  cat > "/etc/systemd/system/${SHIP_SERVICE_NAME}.service" <<EOF
+[Unit]
+Description=LanIT firewall baseline daily ship
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=${py} ${INSTALL_DIR}/ship.py --config ${SHIP_ENV} --data-dir ${DATA_DIR}
+WorkingDirectory=${INSTALL_DIR}
+EOF
+  cat > "/etc/systemd/system/${SHIP_SERVICE_NAME}.timer" <<EOF
+[Unit]
+Description=Ship flows.csv once per day (UTC)
+
+[Timer]
+OnCalendar=*-*-* ${SHIP_HOUR}:15:00
+Persistent=true
+Unit=${SHIP_SERVICE_NAME}.service
+
+[Install]
+WantedBy=timers.target
+EOF
+  systemctl daemon-reload
+  systemctl enable --now "${SHIP_SERVICE_NAME}.timer"
 }
 
 do_install() {
@@ -164,6 +245,13 @@ PY
   systemctl restart "$SERVICE_NAME"
   echo "installed ${SERVICE_NAME}"
   echo "data: ${DATA_DIR}/flows.csv"
+  if write_ship_env; then
+    write_ship_units
+    echo "daily ship: ${SHIP_METHOD} -> ${SHIP_DEST} at ${SHIP_HOUR}:15 UTC"
+    if [[ "$SHIP_NOW" -eq 1 ]]; then
+      systemctl start "$SHIP_SERVICE_NAME" || true
+    fi
+  fi
   systemctl --no-pager --full status "$SERVICE_NAME" | head -n 12 || true
 }
 
@@ -176,6 +264,11 @@ do_status() {
   fi
   if [[ -f "$DATA_DIR/flows.csv" ]]; then
     echo "flows: $DATA_DIR/flows.csv ($(wc -l < "$DATA_DIR/flows.csv") lines)"
+  fi
+  if [[ -f "$SHIP_ENV" ]]; then
+    echo "ship.env:"
+    grep -E '^(SHIP_METHOD|SHIP_DEST)=' "$SHIP_ENV" || true
+    systemctl --no-pager --full status "${SHIP_SERVICE_NAME}.timer" || true
   fi
 }
 
@@ -190,8 +283,27 @@ do_uninstall() {
   systemctl stop "$SERVICE_NAME" >/dev/null 2>&1 || true
   systemctl disable "$SERVICE_NAME" >/dev/null 2>&1 || true
   rm -f "/etc/systemd/system/${SERVICE_NAME}.service"
+  systemctl stop "${SHIP_SERVICE_NAME}.timer" >/dev/null 2>&1 || true
+  systemctl disable "${SHIP_SERVICE_NAME}.timer" >/dev/null 2>&1 || true
+  rm -f "/etc/systemd/system/${SHIP_SERVICE_NAME}.service" "/etc/systemd/system/${SHIP_SERVICE_NAME}.timer"
   systemctl daemon-reload
   echo "removed ${SERVICE_NAME} (data kept in ${DATA_DIR})"
+}
+
+do_ship() {
+  need_root
+  if [[ ! -f "$SHIP_ENV" && -z "$SHIP_DEST" ]]; then
+    echo "no ship dest. pass --ship-dest or install with --ship-dest" >&2
+    exit 2
+  fi
+  if [[ -n "$SHIP_DEST" ]]; then
+    write_ship_env || true
+  fi
+  local ship_py="$INSTALL_DIR/ship.py"
+  if [[ ! -f "$ship_py" ]]; then
+    ship_py="$HERE/ship.py"
+  fi
+  PYTHONPATH="$(dirname "$ship_py")" "$(python_bin)" "$ship_py" --config "$SHIP_ENV" --data-dir "$DATA_DIR"
 }
 
 do_export() {
@@ -230,4 +342,5 @@ case "$ACTION" in
   stop) do_stop ;;
   uninstall) do_uninstall ;;
   export) do_export ;;
+  ship) do_ship ;;
 esac
